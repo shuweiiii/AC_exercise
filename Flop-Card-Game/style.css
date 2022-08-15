@@ -1,0 +1,135 @@
+/* 讓52張牌用flexbox布局 */
+#cards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 85%;
+  /* 新增：寬度和標頭一致 */
+  margin: 0 auto;
+  /* 新增：置中 */
+  transition: all 1s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* 此時card已經變成flex item */
+.card {
+  box-sizing: border-box;
+  flex: 7% 1 1;
+  /* 修改：卡片需要分配剩餘空間 */
+  /*flex 為 flex-basis(定義flex在主軸上的初始大小) | flex-grow(定義在flex容器中分配剩餘空間的相對比例) | flex-shrink(定義flex元素的收縮，在默認寬度枝和大於容器時會產生收縮)| 的縮寫*/
+  height: 8vw;
+  /*vw : view height，也就是螢幕可視範圍高度的百分比*/
+  border: 2px solid #e0e0e0;
+  margin: 2px;
+
+  /* 卡片內部元素排版 */
+  display: flex;
+  /*變為flex容器後 內部item的主軸為row(橫向)*/
+  flex-direction: column;
+  /*改變flex item 方向為column(此時主軸變為column)*/
+  justify-content: space-around;
+  /*以column為方向平均分配*/
+}
+
+
+.card img {
+  max-width: 30%;
+  align-self: center;
+  /*切軸的方向調整*/
+
+}
+
+.card p {
+  margin: 3px;
+  /*瀏覽器本身會對文字有預設的樣式例如本身就有margin*/
+  font-size: 10px;
+}
+
+.card p:last-child {
+  transform: rotate(180deg);
+  /*對card裡 第二個子元素p進行旋轉180度*/
+}
+
+.back {
+  background: url("https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png");
+  background-size: cover;
+  transform: rotateY(180deg);
+  transition: 0.5s;
+}
+
+.back:hover {
+  transform: scale(0.8);
+}
+
+.paired {
+  background-color: #dae0e3;
+}
+
+#header {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 85%;
+}
+
+#header .title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#header .title img {
+  max-width: 3em;
+}
+
+#header .title h2 {
+  padding-left: 0.5em;
+}
+
+#header .score {
+  margin: 0;
+  color: #6c90ac;
+}
+
+#header .tried {
+  margin-top: 0;
+}
+
+.wrong {
+  animation-name: wrongAnimation;
+  animation-duration: 0.2s;
+  /*動畫要持續 0.2 秒，也就是「逐漸加入黃色邊框」的效果要用 0.2 秒來跑完*/
+  animation-iteration-count: 5;
+  /*動畫要重覆 5 次*/
+}
+
+/*動畫流程*/
+@keyframes wrongAnimation {
+  to {
+    border: 2px solid #ffd54f;
+  }
+}
+
+/** Game finished **/
+.completed {
+  position: absolute;
+  z-index: 999;
+  top: 33vh;
+  background-color: RGBA(232, 246, 254, 0.8);
+  width: 100vw;
+  padding: 50px 0;
+}
+
+.completed>p {
+  font-size: 1.5em;
+  color: black;
+  text-align: center;
+  margin: 0;
+}
+
+.completed>p:first-child {
+  font-size: 3em;
+  font-weight: 700;
+  color: #758d9a;
+}
